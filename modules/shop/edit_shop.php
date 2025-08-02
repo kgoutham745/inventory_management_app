@@ -1,11 +1,12 @@
 <?php
 session_start();
-require 'db.php';
 
-if ($_SESSION['role'] !== 'user') {
-    header("Location: login.php");
-    exit();
-}
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../config/config.php';
+
+require_once __DIR__ . '/../auth/require.php';
+
+requireRole('user');
 
 $user_id = $_SESSION['user_id'];
 $shop_id = $_GET['id'] ?? null;
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssii", $shop_name, $owner_name, $location, $phone, $shop_id, $user_id);
 
     if ($stmt->execute()) {
-        header("Location: user_dashboard.php");
+        header("Location: " . USER_HOME_PAGE);
     } else {
         echo "Error updating shop.";
     }

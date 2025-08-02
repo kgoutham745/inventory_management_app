@@ -1,5 +1,7 @@
 <?php
-require 'db.php';
+// require 'db.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../config/config.php';
 
 $id = $_GET['id'];
 
@@ -14,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssi", $username, $password, $role, $id);
 
     if ($stmt->execute()) {
-        header("Location: admin_dashboard.php");
+        header("Location: " . ADMIN_HOME_PAGE);
     } else {
         echo "Error updating user.";
     }

@@ -1,6 +1,7 @@
 <?php
 session_start();
-require 'db.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../config/config.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -19,9 +20,9 @@ if ($result->num_rows === 1) {
         $_SESSION['role'] = $user['role'];
 
         if ($user['role'] === 'admin') {
-            header("Location: admin_dashboard.php");
+            header("Location: " . ADMIN_HOME_PAGE);
         } else {
-            header("Location: user_dashboard.php");
+            header("Location: " . USER_HOME_PAGE);
         }
         exit();
     } else {

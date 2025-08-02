@@ -1,3 +1,18 @@
+<!-- <?php
+session_start();
+
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../config/config.php';
+
+if ($_SESSION['role'] !== 'user') {
+    header("Location: login.php");
+    exit();
+}
+?>
+<h2>Welcome User: <?php echo $_SESSION['username']; ?></h2>
+<a href="logout.php">Logout</a> -->
+
+
 <?php
 session_start();
 require 'db.php';
@@ -23,19 +38,6 @@ $stmt = $conn->prepare("SELECT * FROM shops WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $shops = $stmt->get_result();
-
-// Fetch user's orders
-$sql = "
-    SELECT o.id, s.shop_name, o.quantity_boxes, o.status, o.created_at
-    FROM orders o
-    JOIN shops s ON o.shop_id = s.id
-    WHERE s.user_id = ?
-    ORDER BY o.created_at DESC
-";
-$stmt_orders = $conn->prepare($sql);
-$stmt_orders->bind_param("i", $user_id);
-$stmt_orders->execute();
-$orders = $stmt_orders->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -87,28 +89,5 @@ $orders = $stmt_orders->get_result();
 
     <button type="submit">Add Shop</button>
 </form>
-
-<hr>
-
-<h3>Your Order History</h3>
-<table border="1" cellpadding="10">
-    <tr>
-        <th>Order ID</th>
-        <th>Shop</th>
-        <th>Quantity (Boxes)</th>
-        <th>Status</th>
-        <th>Ordered On</th>
-    </tr>
-    <?php while ($row = $orders->fetch_assoc()): ?>
-    <tr>
-        <td><?= $row['id'] ?></td>
-        <td><?= htmlspecialchars($row['shop_name']) ?></td>
-        <td><?= $row['quantity_boxes'] ?></td>
-        <td><?= $row['status'] ?></td>
-        <td><?= $row['created_at'] ?></td>
-    </tr>
-    <?php endwhile; ?>
-</table>
-
 </body>
 </html>

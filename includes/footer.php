@@ -142,6 +142,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/pekka/service-worker.js")
+            .then(() => console.log("Service Worker Registered"));
+    }
+</script>
+
+
 
 </body>
 </html>

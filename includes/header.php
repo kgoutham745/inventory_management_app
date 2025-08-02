@@ -18,6 +18,19 @@ require_once __DIR__ . '/../config/config.php'; // Load constants
     
     <!-- Optional custom CSS -->
     <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
+
+    <link rel="manifest" href="../../manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+
+    <!-- iOS PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Pekka">
+    <link rel="apple-touch-icon" href="../../assets/icons/icon.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/icons/icon.png">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
